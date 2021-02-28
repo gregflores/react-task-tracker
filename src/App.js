@@ -24,6 +24,15 @@ function App() {
 			reminder: false,
 		},
 	]);
+	// Toggle reminder
+	const toggleReminder = (id) => {
+		setTasks(
+			tasks.map((task) =>
+				task.id === id ? { ...task, reminder: !task.reminder } : task
+			)
+		);
+	};
+
 	// Delete Task
 	const deleteTask = (id) => {
 		setTasks(tasks.filter((task) => task.id !== id));
@@ -36,7 +45,15 @@ function App() {
 			{/* Reading variables inside JSX */}
 			{/* <h2>Hello {x ? 'Yes' : 'No'}</h2>
 			<h2>Hello {name}</h2> */}
-			<Tasks tasks={tasks} onDelete={deleteTask} />
+			{tasks.length > 0 ? (
+				<Tasks
+					tasks={tasks}
+					onDelete={deleteTask}
+					onToggle={toggleReminder}
+				/>
+			) : (
+				'You have no tasks'
+			)}
 		</div>
 	);
 }
