@@ -1,9 +1,11 @@
 import Header from './components/Header';
 import Tasks from './components/Tasks';
+import AddTask from './components/AddTask';
 import { useState } from 'react';
 function App() {
 	// const name = 'Greg';
 	// const x = true;
+	const [showAddTask, setShowAddTask] = useState(false);
 	const [tasks, setTasks] = useState([
 		{
 			id: 1,
@@ -24,6 +26,14 @@ function App() {
 			reminder: false,
 		},
 	]);
+
+	// Add task
+	const addTask = (task) => {
+		const id = Math.floor(Math.random() * 10000 + 1);
+		const newTask = { id, ...task };
+		setTasks([...tasks, newTask]);
+	};
+
 	// Toggle reminder
 	const toggleReminder = (id) => {
 		setTasks(
@@ -41,7 +51,11 @@ function App() {
 	return (
 		<div className='container'>
 			{/* <Header title='Hello' /> */}
-			<Header />
+			<Header
+				onAdd={() => setShowAddTask(!showAddTask)}
+				showAddTask={showAddTask}
+			/>
+			{showAddTask && <AddTask onAdd={addTask} />}
 			{/* Reading variables inside JSX */}
 			{/* <h2>Hello {x ? 'Yes' : 'No'}</h2>
 			<h2>Hello {name}</h2> */}
