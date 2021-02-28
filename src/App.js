@@ -1,7 +1,11 @@
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
-import { useState, useEffect } from 'react';
+import About from './components/About';
+
 function App() {
 	// const name = 'Greg';
 	// const x = true;
@@ -75,26 +79,39 @@ function App() {
 	};
 
 	return (
-		<div className='container'>
-			{/* <Header title='Hello' /> */}
-			<Header
-				onAdd={() => setShowAddTask(!showAddTask)}
-				showAddTask={showAddTask}
-			/>
-			{showAddTask && <AddTask onAdd={addTask} />}
-			{/* Reading variables inside JSX */}
-			{/* <h2>Hello {x ? 'Yes' : 'No'}</h2>
-			<h2>Hello {name}</h2> */}
-			{tasks.length > 0 ? (
-				<Tasks
-					tasks={tasks}
-					onDelete={deleteTask}
-					onToggle={toggleReminder}
+		<Router>
+			<div className='container'>
+				{/* <Header title='Hello' /> */}
+				<Header
+					onAdd={() => setShowAddTask(!showAddTask)}
+					showAddTask={showAddTask}
 				/>
-			) : (
-				'You have no tasks'
-			)}
-		</div>
+
+				<Route
+					path='/'
+					exact
+					render={(props) => (
+						<>
+							{showAddTask && <AddTask onAdd={addTask} />}
+							{/* Reading variables inside JSX */}
+							{/* <h2>Hello {x ? 'Yes' : 'No'}</h2>
+				<h2>Hello {name}</h2> */}
+							{tasks.length > 0 ? (
+								<Tasks
+									tasks={tasks}
+									onDelete={deleteTask}
+									onToggle={toggleReminder}
+								/>
+							) : (
+								'You have no tasks'
+							)}
+						</>
+					)}
+				/>
+				<Route path='/about' component={About} />
+				<Footer />
+			</div>
+		</Router>
 	);
 }
 
