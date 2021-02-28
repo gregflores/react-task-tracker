@@ -2,8 +2,8 @@ import Header from './components/Header';
 import Tasks from './components/Tasks';
 import { useState } from 'react';
 function App() {
-	const name = 'Greg';
-	const x = true;
+	// const name = 'Greg';
+	// const x = true;
 	const [tasks, setTasks] = useState([
 		{
 			id: 1,
@@ -26,7 +26,7 @@ function App() {
 	]);
 	// Delete Task
 	const deleteTask = (id) => {
-		console.log(`delete ${id}`);
+		setTasks(tasks.filter((task) => task.id !== id));
 	};
 
 	return (
@@ -34,9 +34,9 @@ function App() {
 			{/* <Header title='Hello' /> */}
 			<Header />
 			{/* Reading variables inside JSX */}
-			<h2>Hello {x ? 'Yes' : 'No'}</h2>
-			<h2>Hello {name}</h2>
-			<Tasks tasks={tasks} />
+			{/* <h2>Hello {x ? 'Yes' : 'No'}</h2>
+			<h2>Hello {name}</h2> */}
+			<Tasks tasks={tasks} onDelete={deleteTask} />
 		</div>
 	);
 }
