@@ -63,7 +63,7 @@ function App() {
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify(updatedTask),
 		});
-		const data = await res.json();
+		await res.json();
 
 		setTasks(
 			tasks.map((task) =>
@@ -114,5 +114,4 @@ function App() {
 		</Router>
 	);
 }
-
 export default App;
